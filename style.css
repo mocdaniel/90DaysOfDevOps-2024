@@ -1,0 +1,11 @@
+:not(pre) > code::before, :not(pre) > code::after {
+  content: "";
+}
+
+code {
+  @apply text-xl;
+}
+
+li {
+  @apply my-2 text-xl;
+}
