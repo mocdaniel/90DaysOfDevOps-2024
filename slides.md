@@ -8,6 +8,7 @@ drawings:
 transition: slide-left
 css: unocss
 layout: two-cols
+codeCopy: true
 ---
 
 <div class="col">
@@ -65,20 +66,17 @@ layout: section
 
 # What is Ansible?
 
+## And How Does It Work?
 ---
 layout: default
 ---
 
 # What is Ansible?
 
-<v-clicks at="0">
-
-  - **Automation** tool for IT **services** and **configuration**
-  - **Agentless** via SSH
-  - Built on **Python** (logic) and **YAML** (configuration)
-  - **Open Source** and easy to get started with
-
-</v-clicks>
+- **Automation** tool for IT **services** and **configuration**
+- **Agentless** via SSH
+- Built on **Python** (logic) and **YAML** (configuration)
+- **Open Source** and easy to get started with
 
 <style>
 
@@ -108,22 +106,20 @@ layout: two-cols
 
 <div class="code-col">
 
-  ```yml
-  # hosts.yml
-  hosts:
-    webservers:
-      hosts:
-        webshop.example.com:
-          ansible_host: 192.168.1.10
-          vars:
-            webserver: apache2
-        company.example.com:
-          ansible_host: 192.168.1.11
-            webserver: nginx
-        internal.example.com:
-          ansible_host: 192.168.1.12
-            webserver: httpd
-  ```
+```yml
+hosts:
+  webservers:
+    hosts:
+      webshop.example.com:
+        ansible_host: 192.168.1.10
+        webserver: apache2
+      company.example.com:
+        ansible_host: 192.168.1.11
+        webserver: nginx
+      internal.example.com:
+        ansible_host: 192.168.1.12
+        webserver: httpd
+```
 
 </div>
 
@@ -205,42 +201,37 @@ ansible \
 </style>
 
 ---
+layout: section
+---
+
+# DEMO
+
+---
 layout: two-cols
 ---
 
 # Imperative vs. Declarative
 
 <div class="col left">
-  <v-click>
 
   > "Take two slices of bread. Slice a tomato. Fry the bacon. Wash the lettuce. Put it all together. Serve it to me."
-
-  </v-click>
-  <v-click>
 
   - Define exactly what you want to **happen**
   - Can be very **verbose**
   - **Error-prone** and hard to **reproduce**
-
-  </v-click>
 
 </div>
 
 ::right::
 
 <div class="col right">
-  <v-click>
   
   > "I'd like a BLT sandwich."
 
-  </v-click>
-  <v-click>
-  
   - Define what you expect the **result** to be
-  - **Concise** and **easy to read**
+  - **Concise** and **easy to understand**
   - **Reproducible**
 
-  </v-click>
 </div>
 
 <style>
@@ -422,6 +413,12 @@ A collection of **Plays** is called a **Playbook**
 layout: section
 ---
 
+# DEMO
+
+---
+layout: section
+---
+
 # Why Event-Driven?
 
 ---
@@ -431,25 +428,25 @@ layout: default
 # In DevOps, Automation is Key
 
 <div class="facts">
-<p v-click>
+<p>
 
   ✅ **Tests** are run automatically
 </p>
-<p v-click>
+<p>
 
   ✅ **Builds** are run automatically</p>
-<p v-click>
+<p>
 
   ✅ **Deployments** are run automatically
 </p>
-<p v-click>
+<p>
 
   ✅ **Infrastructure** is provisioned automatically
 </p>
 <br />
-<p v-click>
+<p>
 
-  ❌ **Maintenance** and **Incident Response** are (mostly) manual
+  ❌ **Maintenance** and **Incident Response** are done (mostly) manual
 </p>
 </div>
 
@@ -477,21 +474,21 @@ layout: default
 </p>
 
 <ul>
-  <li v-click>
+  <li>
 
   **Pruning** old backups
   </li>
-  <li v-click>
+  <li>
 
   **Restarting** services upon failure
   </li>
-  <li v-click>
+  <li>
 
   **Scaling** infrastructure, storage, etc.
   </li>
 </ul>
 
-<p class="p" v-click>
+<p class="p">
 
   🛑 With **repetition** comes **boredom** and **human error**
 </p>
@@ -535,3 +532,81 @@ layout: default
 # EDA Explained
 
 <img class="pt-16 mx-auto w-128" src="/eda-overview.png" alt="An overview over the EDA architecture" />
+
+
+---
+layout: two-cols
+clicks: 5
+---
+
+# Rules and Rulesets
+
+<p class="pt-8 text-xl">
+
+**Rulesets** combine **sources** and **rules** to define **events** that should trigger **actions**:
+
+</p>
+
+<ul>
+  <li v-click=1>
+
+  Same as **tasks**, **rulesets** can have a **name**
+  
+  </li>
+  <li v-click=2>
+
+  **Hosts** on which the triggered **actions** should be executed need to be defined
+
+  </li>
+  <li v-click=3>
+
+  **Sources** define one or more **event sources** to be used
+
+  </li>
+  <li v-click=4>
+
+  **Rules** define the **conditions** and **actions** to be executed
+
+  </li>
+</ul>
+
+
+::right::
+
+<div class="code-col">
+
+```yml {all|1|2|3-6|7-12|all}{at:0}
+- name: Greet the world
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Hello World!
+      condition: 1 == 1  # always true
+      action:
+        debug:
+          msg: "Hello World!"
+```
+
+</div>
+
+<style>
+  .code-col {
+    @apply h-full flex flex-col justify-center pl-14;
+  }
+
+  code {
+    @apply text-sm;
+  }
+
+</style>
+
+---
+layout: section
+---
+
+# DEMO
+
+https://github.com/kubernetes/sig-release/blob/master/releases/release-1.30/release-team.md

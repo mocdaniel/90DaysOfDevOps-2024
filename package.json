@@ -11,6 +11,7 @@
     "slidev-theme-dracula": "^0.2.0"
   },
   "devDependencies": {
-    "@iconify-json/icon-park-twotone": "^1.1.14"
+    "@iconify-json/icon-park-twotone": "^1.1.14",
+    "playwright-chromium": "^1.40.1"
   }
 }
